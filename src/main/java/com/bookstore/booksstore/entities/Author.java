@@ -3,7 +3,7 @@ package com.bookstore.booksstore.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+@Entity(name = "Authors")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
