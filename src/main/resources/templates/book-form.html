@@ -19,12 +19,30 @@
 
         <input type="text" th:field="*{title}"
                class="form-control mb-4 col-4" placeholder="Title">
-        <input type="text" th:field="*{author.name}"
-               class="form-control mb-4 col-4" placeholder="Author">
-        <input type="text" th:field="*{publisher.name}"
-               class="form-control mb-4 col-4" placeholder="Publisher">
-        <input type="text" th:field="*{category.name}"
-               class="form-control mb-4 col-4" placeholder="Category">
+
+
+        <select th:field="*{author}" class="form-control mb-4 col-4">
+            <option value="" disabled selected>Select Author</option>
+            <option th:each="author : ${authors}"
+                    th:value="${author.authorId}"
+                    th:text="${author.name}"></option>
+        </select>
+
+
+        <select th:field="*{publisher}" class="form-control mb-4 col-4">
+            <option value="" disabled selected>Select Publisher</option>
+            <option th:each="publisher : ${publishers}"
+                    th:value="${publisher.publisherId}"
+                    th:text="${publisher.name}"></option>
+        </select>
+
+        <select th:field="*{category}" class="form-control mb-4 col-4">
+            <option value="" disabled selected>Select Category</option>
+            <option th:each="category : ${categories}"
+                    th:value="${category.categoryId}"
+                    th:text="${category.name}"></option>
+        </select>
+
         <input type="text" th:field="*{price}"
                class="form-control mb-4 col-4" placeholder="Price">
         <input type="text" th:field="*{publishedDate}"
