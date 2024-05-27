@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h3>Book Directory</h3>
+    <hr>
+
+    <p class="h4 mb-4">Add Book</p>
+
+    <form action="#" th:action="@{/books/save}"
+          th:object="${book}" method="POST">
+
+        <input type="hidden" th:field="*{bookId}" />
+
+        <input type="text" th:field="*{title}"
+               class="form-control mb-4 col-4" placeholder="Title">
+        <input type="text" th:field="*{author.name}"
+               class="form-control mb-4 col-4" placeholder="Author">
+        <input type="text" th:field="*{publisher.name}"
+               class="form-control mb-4 col-4" placeholder="Publisher">
+        <input type="text" th:field="*{category.name}"
+               class="form-control mb-4 col-4" placeholder="Category">
+        <input type="text" th:field="*{price}"
+               class="form-control mb-4 col-4" placeholder="Price">
+        <input type="text" th:field="*{publishedDate}"
+               class="form-control mb-4 col-4" placeholder="Published Date">
+        <input type="text" th:field="*{isbn}"
+               class="form-control mb-4 col-4" placeholder="ISBN">
+        <input type="text" th:field="*{stockQuantity}"
+               class="form-control mb-4 col-4" placeholder="Stock Quantity">
+        <button type="submit" class="btn btn-info col-2">Add</button>
+    </form>
+    <hr>
+    <a th:href="@{/books}">Back to books</a>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
