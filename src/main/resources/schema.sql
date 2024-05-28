@@ -35,21 +35,22 @@ CREATE TABLE Books (
     FOREIGN KEY (category_id) REFERENCES Categories(category_id)
 );
 
-CREATE TABLE Customers (
-    customer_id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20),
-    address VARCHAR(255)
+    address VARCHAR(255),
+    role VARCHAR(255)
 );
 
 CREATE TABLE Orders (
     order_id INT PRIMARY KEY AUTO_INCREMENT,
-    customer_id INT,
+    user_id INT,
     order_date DATE NOT NULL,
     total_amount DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 CREATE TABLE Order_Items (
@@ -65,10 +66,10 @@ CREATE TABLE Order_Items (
 CREATE TABLE Reviews (
     review_id INT PRIMARY KEY AUTO_INCREMENT,
     book_id INT,
-    customer_id INT,
+    user_id INT,
     rating INT NOT NULL,
     comment TEXT,
     review_date DATE,
     FOREIGN KEY (book_id) REFERENCES Books(book_id),
-    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );

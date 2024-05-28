@@ -22,11 +22,11 @@ INSERT INTO Books (title, author_id, publisher_id, category_id, price, published
 INSERT INTO Books (title, author_id, publisher_id, category_id, price, published_date, isbn, stock_quantity) VALUES
 ('The Fellowship of the Ring', 3, 3, 1, 15.99, '1954-07-29', '9780261103573', 80);
 
-INSERT INTO Customers (first_name, last_name, email, phone_number, address) VALUES
-('John', 'Doe', 'john.doe@example.com', '555-1234', '123 Elm Street, Springfield, IL 62701, USA'),
-('Jane', 'Smith', 'jane.smith@example.com', '555-5678', '456 Oak Avenue, Springfield, IL 62702, USA');
+INSERT INTO Users (username, password, email, phone_number, address, role) VALUES
+('John','12334','john.doe@example.com', '555-1234', '123 Elm Street, Springfield, IL 62701, USA', 'ROLE_USER'),
+('Jane', '15667','jane.smith@example.com', '555-5678', '456 Oak Avenue, Springfield, IL 62702, USA', 'ROLE_USER');
 
-INSERT INTO Orders (customer_id, order_date, total_amount) VALUES
+INSERT INTO Orders (user_id, order_date, total_amount) VALUES
 (1, '2024-05-01', 39.98),
 (2, '2024-05-02', 22.99);
 
@@ -35,7 +35,7 @@ INSERT INTO Order_Items (order_id, book_id, quantity, unit_price) VALUES
 (1, 3, 1, 19.99),
 (2, 2, 1, 22.99);
 
-INSERT INTO Reviews (book_id, customer_id, rating, comment, review_date) VALUES
+INSERT INTO Reviews (book_id, user_id, rating, comment, review_date) VALUES
 (1, 1, 5, 'An amazing start to a magical series!', '2024-05-05'),
 (2, 2, 4, 'Great book, but a bit too many characters to follow.', '2024-05-06'),
 (3, 1, 5, 'A timeless classic that everyone should read.', '2024-05-07');

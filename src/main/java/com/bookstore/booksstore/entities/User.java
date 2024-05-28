@@ -3,20 +3,21 @@ package com.bookstore.booksstore.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "Customers")
+@Entity(name = "Users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId;
+    private Long userId;
 
-    private String firstName;
-    private String lastName;
+    private String username;
+    private String password;
     private String email;
     private String phoneNumber;
     private String address;
+    private String role;
 
 }
