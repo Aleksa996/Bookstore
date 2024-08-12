@@ -1,17 +1,14 @@
 package com.bookstore.booksstore.services;
 
-import com.bookstore.booksstore.entities.User;
+import com.bookstore.booksstore.entities.AppUser;
 import com.bookstore.booksstore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
+@Service
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -20,9 +17,9 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username);
+        AppUser user = userRepository.findByUsername(username);
 
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
 
@@ -30,6 +27,5 @@ public class MyUserDetailsService implements UserDetailsService {
                 .password(user.getPassword())
                 .roles(user.getRole())
                 .build();
-
     }
 }

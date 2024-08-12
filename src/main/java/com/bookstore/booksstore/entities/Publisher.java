@@ -12,7 +12,6 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long publisherId;
-
     private String name;
     private String address;
     private String phoneNumber;

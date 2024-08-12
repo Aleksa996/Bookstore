@@ -17,40 +17,66 @@
 
         <input type="hidden" th:field="*{bookId}" />
 
-        <input type="text" th:field="*{title}"
-               class="form-control mb-4 col-4" placeholder="Title">
+        <div class="form-group col-4">
+            <label th:for="*{title}">Title</label>
+            <input type="text" th:field="*{title}"
+                   class="form-control" placeholder="Title">
+        </div>
 
+        <div class="form-group col-4">
+            <label th:for="*{author}">Author</label>
+            <select th:field="*{author}" class="form-control">
+                <option value="" disabled selected>Select Author</option>
+                <option th:each="author : ${authors}"
+                        th:value="${author.authorId}"
+                        th:text="${author.name}"></option>
+            </select>
+        </div>
 
-        <select th:field="*{author}" class="form-control mb-4 col-4">
-            <option value="" disabled selected>Select Author</option>
-            <option th:each="author : ${authors}"
-                    th:value="${author.authorId}"
-                    th:text="${author.name}"></option>
-        </select>
+        <div class="form-group col-4">
+            <label th:for="*{publisher}">Publisher</label>
+            <select th:field="*{publisher}" class="form-control">
+                <option value="" disabled selected>Select Publisher</option>
+                <option th:each="publisher : ${publishers}"
+                        th:value="${publisher.publisherId}"
+                        th:text="${publisher.name}"></option>
+            </select>
+        </div>
 
+        <div class="form-group col-4">
+            <label th:for="*{category}">Category</label>
+            <select th:field="*{category}" class="form-control">
+                <option value="" disabled selected>Select Category</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.categoryId}"
+                        th:text="${category.name}"></option>
+            </select>
+        </div>
 
-        <select th:field="*{publisher}" class="form-control mb-4 col-4">
-            <option value="" disabled selected>Select Publisher</option>
-            <option th:each="publisher : ${publishers}"
-                    th:value="${publisher.publisherId}"
-                    th:text="${publisher.name}"></option>
-        </select>
+        <div class="form-group col-4">
+            <label th:for="*{price}">Price</label>
+            <input type="text" th:field="*{price}"
+                   class="form-control" placeholder="Price">
+        </div>
 
-        <select th:field="*{category}" class="form-control mb-4 col-4">
-            <option value="" disabled selected>Select Category</option>
-            <option th:each="category : ${categories}"
-                    th:value="${category.categoryId}"
-                    th:text="${category.name}"></option>
-        </select>
+        <div class="form-group col-4">
+            <label th:for="*{publishedDate}">Published Date</label>
+            <input type="text" th:field="*{publishedDate}"
+                   class="form-control" placeholder="Published Date">
+        </div>
 
-        <input type="text" th:field="*{price}"
-               class="form-control mb-4 col-4" placeholder="Price">
-        <input type="text" th:field="*{publishedDate}"
-               class="form-control mb-4 col-4" placeholder="Published Date">
-        <input type="text" th:field="*{isbn}"
-               class="form-control mb-4 col-4" placeholder="ISBN">
-        <input type="text" th:field="*{stockQuantity}"
-               class="form-control mb-4 col-4" placeholder="Stock Quantity">
+        <div class="form-group col-4">
+            <label th:for="*{isbn}">ISBN</label>
+            <input type="text" th:field="*{isbn}"
+                   class="form-control" placeholder="ISBN">
+        </div>
+
+        <div class="form-group col-4">
+            <label th:for="*{stockQuantity}">Stock Quantity</label>
+            <input type="text" th:field="*{stockQuantity}"
+                   class="form-control" placeholder="Stock Quantity">
+        </div>
+
         <button type="submit" class="btn btn-info col-2">Add</button>
     </form>
     <hr>
@@ -63,3 +89,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

@@ -1,8 +1,10 @@
 package com.bookstore.booksstore.services;
 
-import com.bookstore.booksstore.entities.User;
+import com.bookstore.booksstore.entities.AppUser;
 import com.bookstore.booksstore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,20 +15,24 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getAllUser(){
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public List<AppUser> getAllUser(){
         return userRepository.findAll();
     }
 
-    public User getUserById(Long id){
+    public AppUser getUserById(Long id){
         return userRepository.findById(id).orElse(null);
-    }
-
-    public User saveUser(User user){
-        return userRepository.save(user);
     }
 
     public void deleteUser(Long id){
         userRepository.deleteById(id);
+    }
+
+    public AppUser saveUser(AppUser user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));  // Encrypt the password before saving
+        return userRepository.save(user);
     }
 
 }

@@ -1,9 +1,7 @@
 CREATE TABLE Authors (
     author_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
-    bio TEXT,
-    birth_date DATE,
-    death_date DATE
+    bio TEXT
 );
 
 CREATE TABLE Publishers (
@@ -38,7 +36,7 @@ CREATE TABLE Books (
 CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(150) NOT NULL,
     email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20),
     address VARCHAR(255),

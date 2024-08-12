@@ -18,7 +18,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private AppUser user;
 
     private Date orderDate;
     private double totalAmount;

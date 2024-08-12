@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Author</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <h3>Author Directory</h3>
+  <hr>
+
+  <p class="h4 mb-4">Add Author</p>
+
+  <form action="#" th:action="@{/author/save}"
+        th:object="${author}" method="POST">
+
+    <input type="hidden" th:field="*{authorId}" />
+
+    <div class="form-group col-4">
+      <label th:for="*{name}">Name</label>
+      <input type="text" th:field="*{name}"
+             class="form-control" placeholder="Name">
+    </div>
+
+    <div class="form-group col-4">
+      <label th:for="*{bio}">Biography</label>
+      <textarea class="form-control" th:field="*{bio}"  placeholder="Biography" rows="3"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-info col-2">Add</button>
+  </form>
+  <hr>
+  <a th:href="@{/authors}">Back to authors</a>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

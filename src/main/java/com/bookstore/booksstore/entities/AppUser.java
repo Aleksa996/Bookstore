@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,4 +51,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

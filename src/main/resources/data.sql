@@ -1,7 +1,7 @@
-INSERT INTO Authors (name, bio, birth_date, death_date) VALUES
-('J.K. Rowling', 'British author, best known for the Harry Potter series.', '1965-07-31', NULL),
-('George R.R. Martin', 'American novelist and short story writer, best known for A Song of Ice and Fire.', '1948-09-20', NULL),
-('J.R.R. Tolkien', 'English writer, poet, philologist, and academic, best known for The Lord of the Rings.', '1892-01-03', '1973-09-02');
+INSERT INTO Authors (name, bio) VALUES
+('J.K. Rowling', 'British author, best known for the Harry Potter series.'),
+('George R.R. Martin', 'American novelist and short story writer, best known for A Song of Ice and Fire.'),
+('J.R.R. Tolkien', 'English writer, poet, philologist, and academic, best known for The Lord of the Rings.');
 
 INSERT INTO Publishers (name, address, phone_number, email) VALUES
 ('Bloomsbury', '50 Bedford Square, London, WC1B 3DP, UK', '+44 20 7631 5600', 'info@bloomsbury.com'),
@@ -23,8 +23,8 @@ INSERT INTO Books (title, author_id, publisher_id, category_id, price, published
 ('The Fellowship of the Ring', 3, 3, 1, 15.99, '1954-07-29', '9780261103573', 80);
 
 INSERT INTO Users (username, password, email, phone_number, address, role) VALUES
-('John','12334','john.doe@example.com', '555-1234', '123 Elm Street, Springfield, IL 62701, USA', 'ROLE_USER'),
-('Jane', '15667','jane.smith@example.com', '555-5678', '456 Oak Avenue, Springfield, IL 62702, USA', 'ROLE_USER');
+('John','$2a$12$55WOAnUc2zpVCl0dZizb.eNAs5R/SnmSlT/8EztOQFPlnO9zQxhJC','john.doe@example.com', '555-1234', '123 Elm Street, Springfield, IL 62701, USA', 'USER'),
+('Jane', '$2a$12$2V8r0w2OT7CvmXyKViXpL.y.yhKqdLR/PnRnblOBh6qrrBuSBLoZC','jane.smith@example.com', '555-5678', '456 Oak Avenue, Springfield, IL 62702, USA', 'USER');
 
 INSERT INTO Orders (user_id, order_date, total_amount) VALUES
 (1, '2024-05-01', 39.98),
