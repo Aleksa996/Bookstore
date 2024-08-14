@@ -3,6 +3,8 @@ package com.bookstore.booksstore.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity(name = "Books")
 @Data
 @NoArgsConstructor
@@ -31,5 +33,6 @@ public class Book {
     private String publishedDate;
     private String isbn;
     private int stockQuantity;
+
 
 }

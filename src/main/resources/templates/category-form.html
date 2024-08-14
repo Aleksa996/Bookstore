@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Author</title>
+  <title>Category</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
-  <h3>Author Directory</h3>
+  <h3>Category Directory</h3>
   <hr>
 
-  <p class="h4 mb-4">Add Author</p>
+  <p class="h4 mb-4">Add Category</p>
 
-  <form action="#" th:action="@{/authors/save}" th:object="${author}" method="POST" class="dark-form">
-    <input type="hidden" th:field="*{authorId}" />
+  <form action="#" th:action="@{/category/save}"
+        th:object="${category}" method="POST" class="dark-form">
+
+    <input type="hidden" th:field="*{categoryId}" />
 
     <div class="form-group col-4">
       <label th:for="*{name}">Name</label>
-      <input type="text" th:field="*{name}" class="form-control" placeholder="Name">
+      <input type="text" th:field="*{name}"
+             class="form-control" placeholder="Name">
     </div>
 
     <div class="form-group col-4">
-      <label th:for="*{bio}">Biography</label>
-      <textarea class="form-control" th:field="*{bio}" placeholder="Biography" rows="3"></textarea>
+      <label th:for="*{description}">Description</label>
+      <input type="text" th:field="*{description}"
+             class="form-control" placeholder="Description">
     </div>
 
     <button type="submit" class="btn btn-info col-2">Add</button>
   </form>
   <hr>
-  <a th:href="@{/authors}">Back to authors</a>
+  <a th:href="@{/categories}">Back to categories</a>
 
 </div>
 <div th:replace="fragments/footer :: footer"></div>
