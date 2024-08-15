@@ -37,6 +37,11 @@
                     <button type="button" class="btn btn-primary">Buy</button>
                     <a th:href="@{/books/update(bookId=${book.bookId})}" class="btn btn-info">Update</a>
                     <a th:href="@{/books/delete(bookId=${book.bookId})}" class="btn btn-danger" onClick="if (!(confirm('Are you sure you want to delete this book?'))) return false">Delete</a>
+                    <button type="button" class="btn btn-secondary"
+                            data-toggle="modal" data-target="#infoModal"
+                            th:attr="data-book-id=${book.bookId}">
+                        Info
+                    </button>
                 </div>
             </td>
         </tr>
@@ -48,9 +53,62 @@
     </a>
 </div>
 
-<div th:replace="fragments/footer :: footer"></div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Book Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Book information goes here -->
+                <p><strong>Title:</strong> <span id="modal-title"></span></p>
+                <p><strong>Author:</strong> <span id="modal-author"></span></p>
+                <p><strong>Publisher:</strong> <span id="modal-publisher"></span></p>
+                <p><strong>Category:</strong> <span id="modal-category"></span></p>
+                <p><strong>Price:</strong> <span id="modal-price"></span></p>
+                <p><strong>Published Date:</strong> <span id="modal-publishedDate"></span></p>
+                <p><strong>ISBN:</strong> <span id="modal-isbn"></span></p>
+                <p><strong>Stock Quantity:</strong> <span id="modal-stockQuantity"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+     $(document).ready(function () {
+            $('#infoModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var bookId = button.data('book-id');
+
+                $.ajax({
+                    url: '/books/' + bookId, // Replace with your endpoint
+                    method: 'GET',
+                    success: function (data) {
+                        $('#modal-title').text(data.title);
+                        $('#modal-author').text(data.authorName);
+                        $('#modal-publisher').text(data.publisherName);
+                        $('#modal-category').text(data.categoryName);
+                        $('#modal-price').text(data.price);
+                        $('#modal-publishedDate').text(data.publishedDate);
+                        $('#modal-isbn').text(data.isbn);
+                        $('#modal-stockQuantity').text(data.stockQuantity);
+                    },
+                    error: function () {
+                        console.log('Error fetching book details.');
+                    }
+                });
+            });
+        });
+</script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

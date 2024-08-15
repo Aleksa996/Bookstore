@@ -1,17 +1,16 @@
 package com.bookstore.booksstore.controllers;
 
+import com.bookstore.booksstore.DTO.BookDTO;
 import com.bookstore.booksstore.entities.Book;
 import com.bookstore.booksstore.services.AuthorService;
 import com.bookstore.booksstore.services.BookService;
 import com.bookstore.booksstore.services.CategoryService;
 import com.bookstore.booksstore.services.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,6 +35,18 @@ public class BookController {
         model.addAttribute("books", books);
         return "books";
     }
+
+    @GetMapping("/books/{bookId}")
+    public ResponseEntity<BookDTO> getBookById(@PathVariable Long bookId) {
+        Book book = bookService.getBookById(bookId);
+        if (book != null) {
+            BookDTO bookDTO = BookDTO.toBookDTO(book);
+            return ResponseEntity.ok(bookDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @GetMapping("/books/delete")
     public String delete(@RequestParam("bookId") Long id) {
