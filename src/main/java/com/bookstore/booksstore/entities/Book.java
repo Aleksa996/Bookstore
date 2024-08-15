@@ -30,6 +30,9 @@ public class Book {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    private List<Review> reviews;
+
     private double price;
     private String publishedDate;
     private String isbn;

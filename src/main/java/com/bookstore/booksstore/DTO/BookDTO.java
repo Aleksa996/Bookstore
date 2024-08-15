@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +21,7 @@ public class BookDTO {
     private String publishedDate;
     private String isbn;
     private int stockQuantity;
+    private List<ReviewDTO> reviews;
 
     public static BookDTO toBookDTO(Book book){
         BookDTO bookDTO = new BookDTO();
@@ -31,6 +34,7 @@ public class BookDTO {
         bookDTO.setPublishedDate(book.getPublishedDate());
         bookDTO.setIsbn(book.getIsbn());
         bookDTO.setStockQuantity(book.getStockQuantity());
+
         return bookDTO;
     }
 

@@ -4,10 +4,12 @@ import com.bookstore.booksstore.entities.AppUser;
 import com.bookstore.booksstore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -33,6 +35,11 @@ public class UserService {
     public AppUser saveUser(AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));  // Encrypt the password before saving
         return userRepository.save(user);
+    }
+
+    public AppUser findByUsername(String username) {
+        Optional<AppUser> user = Optional.ofNullable(userRepository.findByUsername(username));
+        return user.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
 }

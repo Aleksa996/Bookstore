@@ -4,6 +4,7 @@ import com.bookstore.booksstore.services.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,14 +36,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/books/*/reviews")
+                )
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login", "/css/**", "/js/**").permitAll()  // Allow access to login page and static resources
-                        .anyRequest().authenticated()  // All other requests require authentication
+                        .requestMatchers(HttpMethod.POST, "/books/*/reviews").hasRole("USER")
+                        .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")  // Set the login page URL
-                        .defaultSuccessUrl("/books", true)  // Redirect to home page on successful login
-                        .failureUrl("/login?error=true")  // Redirect to login page with error on failure
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/books", true)
+                        .failureUrl("/login?error=true")
                         .permitAll()
                 )
                 .logout((logout) -> logout

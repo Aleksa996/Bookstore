@@ -63,7 +63,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Book information goes here -->
                 <p><strong>Title:</strong> <span id="modal-title"></span></p>
                 <p><strong>Author:</strong> <span id="modal-author"></span></p>
                 <p><strong>Publisher:</strong> <span id="modal-publisher"></span></p>
@@ -72,6 +71,22 @@
                 <p><strong>Published Date:</strong> <span id="modal-publishedDate"></span></p>
                 <p><strong>ISBN:</strong> <span id="modal-isbn"></span></p>
                 <p><strong>Stock Quantity:</strong> <span id="modal-stockQuantity"></span></p>
+                <hr>
+                <h5>Reviews</h5>
+                <div id="reviews-container"></div>
+                <hr>
+                <h5>Add a Review</h5>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label for="rating">Rating (1-5)</label>
+                        <input type="number" id="rating" class="form-control" min="1" max="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Comment</label>
+                        <textarea id="comment" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -85,29 +100,74 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
      $(document).ready(function () {
-            $('#infoModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var bookId = button.data('book-id');
+    $('#infoModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var bookId = button.data('book-id');
 
-                $.ajax({
-                    url: '/books/' + bookId, // Replace with your endpoint
-                    method: 'GET',
-                    success: function (data) {
-                        $('#modal-title').text(data.title);
-                        $('#modal-author').text(data.authorName);
-                        $('#modal-publisher').text(data.publisherName);
-                        $('#modal-category').text(data.categoryName);
-                        $('#modal-price').text(data.price);
-                        $('#modal-publishedDate').text(data.publishedDate);
-                        $('#modal-isbn').text(data.isbn);
-                        $('#modal-stockQuantity').text(data.stockQuantity);
-                    },
-                    error: function () {
-                        console.log('Error fetching book details.');
-                    }
-                });
+        $.ajax({
+            url: '/books/' + bookId, // Replace with your endpoint
+            method: 'GET',
+            success: function (data) {
+                $('#modal-title').text(data.title);
+                $('#modal-author').text(data.authorName);
+                $('#modal-publisher').text(data.publisherName);
+                $('#modal-category').text(data.categoryName);
+                $('#modal-price').text(data.price);
+                $('#modal-publishedDate').text(data.publishedDate);
+                $('#modal-isbn').text(data.isbn);
+                $('#modal-stockQuantity').text(data.stockQuantity);
+
+                var reviewsContainer = $('#reviews-container');
+                reviewsContainer.empty();
+
+                if (data.reviews && data.reviews.length > 0) {
+                    data.reviews.forEach(function (review) {
+                        var reviewElement = `
+                            <div class="review">
+                                <p><strong>Rating:</strong> ${review.rating}/5</p>
+                                <p><strong>Comment:</strong> ${review.comment}</p>
+                                <p><small>Reviewed by: ${review.userName} on ${new Date(review.reviewDate).toLocaleDateString()}</small></p>
+                                <hr>
+                            </div>
+                        `;
+                        reviewsContainer.append(reviewElement);
+                    });
+                } else {
+                    reviewsContainer.append('<p>No reviews available.</p>');
+                }
+            },
+            error: function () {
+                console.log('Error fetching book details.');
+            }
+        });
+
+             $('#reviewForm').off('submit').on('submit', function (e) {
+            e.preventDefault();
+
+            var reviewData = {
+                rating: $('#rating').val(),
+                comment: $('#comment').val(),
+                bookId: bookId
+            };
+
+            $.ajax({
+                url: '/books/' + bookId + '/reviews', // Replace with your endpoint
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(reviewData),
+                success: function (data) {
+                    alert('Review added successfully!');
+                    $('#infoModal').modal('hide');
+                    // Optionally refresh the book info and reviews
+                },
+                error: function () {
+                    alert('Error adding review.');
+                }
             });
         });
+
+    });
+});
 </script>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
