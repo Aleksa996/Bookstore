@@ -23,12 +23,12 @@ INSERT INTO Books (title, author_id, publisher_id, category_id, price, published
 ('The Fellowship of the Ring', 3, 3, 1, 15.99, '1954-07-29', '9780261103573', 80);
 
 INSERT INTO Users (username, password, email, phone_number, address, role) VALUES
-('John','$2a$12$55WOAnUc2zpVCl0dZizb.eNAs5R/SnmSlT/8EztOQFPlnO9zQxhJC','john.doe@example.com', '555-1234', '123 Elm Street, Springfield, IL 62701, USA', 'USER'),
+('John','$2a$12$hSfAnDfFjIflzyK5g7WCHemXfUP8ko0RfhLvtTUvEaRvs6pcsyNPS','john.doe@example.com', '555-1234', '123 Elm Street, Springfield, IL 62701, USA', 'ADMIN'),
 ('Jane', '$2a$12$2V8r0w2OT7CvmXyKViXpL.y.yhKqdLR/PnRnblOBh6qrrBuSBLoZC','jane.smith@example.com', '555-5678', '456 Oak Avenue, Springfield, IL 62702, USA', 'USER');
 
-INSERT INTO Orders (user_id, order_date, total_amount) VALUES
-(1, '2024-05-01', 39.98),
-(2, '2024-05-02', 22.99);
+INSERT INTO Orders (user_id, order_date, total_amount, status) VALUES
+(1, '2024-05-01', 39.98, 'OPEN'),
+(2, '2024-05-02', 22.99, 'OPEN');
 
 INSERT INTO Order_Items (order_id, book_id, quantity, unit_price) VALUES
 (1, 1, 1, 19.99),

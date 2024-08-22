@@ -3,6 +3,7 @@ package com.bookstore.booksstore.services;
 import com.bookstore.booksstore.entities.AppUser;
 import com.bookstore.booksstore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +41,11 @@ public class UserService {
     public AppUser findByUsername(String username) {
         Optional<AppUser> user = Optional.ofNullable(userRepository.findByUsername(username));
         return user.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+    }
+
+    public AppUser getCurrentUser(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(username);
     }
 
 }

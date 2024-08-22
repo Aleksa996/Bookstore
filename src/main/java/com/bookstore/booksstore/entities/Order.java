@@ -16,11 +16,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;
 
     private Date orderDate;
     private double totalAmount;
+
+    private String status;
 
 }

@@ -50,10 +50,11 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
-                .logout((logout) -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout=true")
-                        .permitAll()
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/login?logout")
+                                .permitAll()
                 );
 
         return http.build();

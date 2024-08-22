@@ -48,6 +48,7 @@ CREATE TABLE Orders (
     user_id INT,
     order_date DATE NOT NULL,
     total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 

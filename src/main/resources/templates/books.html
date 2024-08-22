@@ -34,9 +34,12 @@
             <td th:text="${book.stockQuantity}">Stock Quantity</td>
             <td>
                 <div class="btn-group" role="group" aria-label="Button group">
-                    <button type="button" class="btn btn-primary">Buy</button>
-                    <a th:href="@{/books/update(bookId=${book.bookId})}" class="btn btn-info">Update</a>
-                    <a th:href="@{/books/delete(bookId=${book.bookId})}" class="btn btn-danger" onClick="if (!(confirm('Are you sure you want to delete this book?'))) return false">Delete</a>
+                    <form th:action="@{/buy/{bookId}(bookId=${book.bookId})}" method="post">
+                        <input type="hidden" name="quantity" value="1" /> <!-- Default to 1, or add an input for the user to specify -->
+                        <button type="submit" class="btn btn-primary">Buy</button>
+                    </form>
+                    <a th:href="@{/books/update(bookId=${book.bookId})}"  sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-info">Update</a>
+                    <a th:href="@{/books/delete(bookId=${book.bookId})}"  sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger" onClick="if (!(confirm('Are you sure you want to delete this book?'))) return false">Delete</a>
                     <button type="button" class="btn btn-secondary"
                             data-toggle="modal" data-target="#infoModal"
                             th:attr="data-book-id=${book.bookId}">
@@ -48,9 +51,15 @@
         </tbody>
     </table>
     <a th:href="@{/books/new}"
-       class="btn btn-primary btn-sm mb-3">
+       class="btn btn-primary btn-sm mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
         Add Book
     </a>
+
+    <a th:href="@{/orders}"
+       class="btn btn-primary btn-sm mb-3">
+        Orders
+    </a>
+
 </div>
 
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
@@ -119,12 +128,12 @@
     </div>
 </div>
 
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-     $(document).ready(function () {
+
+ $(document).ready(function () {
     $('#infoModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var bookId = button.data('book-id');
