@@ -41,7 +41,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login", "/css/**", "/js/**").permitAll()  // Allow access to login page and static resources
-                        .requestMatchers(HttpMethod.POST, "/books/*/reviews").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/books/*/reviews").hasAnyRole("USER","ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
